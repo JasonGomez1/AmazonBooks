@@ -1,6 +1,5 @@
 package com.example.amazonbooks.data.remote
 
-import com.example.amazonbooks.data.Book
 import retrofit2.http.GET
 
 interface ApiService {

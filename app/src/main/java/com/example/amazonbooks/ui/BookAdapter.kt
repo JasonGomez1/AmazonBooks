@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.amazonbooks.data.Book
+import com.example.amazonbooks.data.remote.Book
 import com.example.amazonbooks.databinding.BookItemBinding
 
 class BookAdapter : ListAdapter<Book, BookAdapter.BookViewHolder>(BookDiffUtil()) {

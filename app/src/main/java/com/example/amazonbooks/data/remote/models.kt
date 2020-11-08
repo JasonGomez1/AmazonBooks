@@ -1,4 +1,4 @@
-package com.example.amazonbooks.data
+package com.example.amazonbooks.data.remote
 
 import com.squareup.moshi.JsonClass
 

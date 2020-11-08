@@ -1,7 +1,8 @@
 package com.example.amazonbooks.di.modules
 
-import com.example.amazonbooks.data.BookRepo
-import com.example.amazonbooks.data.BookRepoImpl
+import android.content.Context
+import androidx.room.Room
+import com.example.amazonbooks.data.local.db.BookDatabase
 import com.example.amazonbooks.data.remote.ApiService
 import com.example.amazonbooks.utils.Constants
 import dagger.Module
@@ -33,6 +34,6 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideBookRepo(service: ApiService): BookRepo =
-        BookRepoImpl(service)
+    fun provideBookDatabase(context: Context) =
+        Room.databaseBuilder(context, BookDatabase::class.java, "book-database").build()
 }
