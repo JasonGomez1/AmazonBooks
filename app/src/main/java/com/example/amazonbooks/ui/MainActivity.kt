@@ -2,6 +2,7 @@ package com.example.amazonbooks.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -37,6 +38,7 @@ class MainActivity : AppCompatActivity() {
         // the old list and the new one. It calls the appropriate methods instead of just calling
         // notifyDataSetChanged()
         viewModel.books.observe(this) {
+            Log.d("MainActivity", "In observer size ${it.size}")
             bookAdapter.submitList(it)
         }
     }
