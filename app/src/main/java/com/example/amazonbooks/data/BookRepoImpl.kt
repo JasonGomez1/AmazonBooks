@@ -22,25 +22,18 @@ class BookRepoImpl @Inject constructor(
         db.bookDao()
             .getBooksFlow()
             .distinctUntilChanged()
-            .map { entities ->
-                Log.d("BookRepo", "In map ${entities.size}")
-                if (entities.isEmpty()) {
-                    Log.d("BookRepo", "In empty")
+            .mapLatest { entities ->
+                Log.d("BookRepo", "In mapLatest ${entities.size}")
+                if (entities.isEmpty() || entities.first().isGreaterThanQueryThreshold()) {
+                    Log.d("BookRepo", "In make api call size: ${entities.size}")
                     getAndStoreBooks()
                 } else {
-                    Log.d("BookRepo", "In not empty")
-                    if (entities.first().isGreaterThanQueryThreshold()) {
-                        Log.d("BookRepo", "In greater than threshold")
-                        getAndStoreBooks()
-                    } else {
-                        Log.d("BookRepo", "In less than threshold")
-                        entities.map {
-                            Book(title = it.title, author = it.author, imageURL = it.imageURL)
-                        }
+                    Log.d("BookRepo", "In less than threshold")
+                    entities.map {
+                        Book(title = it.title, author = it.author, imageURL = it.imageURL)
                     }
                 }
             }
-            .onEach {  }
             .flowOn(Dispatchers.IO)
 
     private suspend fun getAndStoreBooks(): List<Book> {
