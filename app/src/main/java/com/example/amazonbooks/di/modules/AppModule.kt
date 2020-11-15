@@ -16,6 +16,10 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
 
+/**
+ * Making every function static makes it so that we don't have to create an instance of AppModule.
+ * Since Dagger 2.26 we don't need to annotate companion objects with @Module or @JvmStatic.
+ */
 @Module
 abstract class AppModule {
     @Binds abstract fun provideBookRepo(bookRepoImpl: BookRepoImpl): BookRepo
