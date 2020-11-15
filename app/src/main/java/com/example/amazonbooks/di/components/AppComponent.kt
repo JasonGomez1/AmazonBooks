@@ -3,13 +3,12 @@ package com.example.amazonbooks.di.components
 import android.content.Context
 import com.example.amazonbooks.App
 import com.example.amazonbooks.di.modules.AppModule
-import com.example.amazonbooks.di.modules.LocalModule
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [AppModule::class, LocalModule::class])
+@Component(modules = [AppModule::class])
 interface AppComponent {
     fun inject(app: App)
 
