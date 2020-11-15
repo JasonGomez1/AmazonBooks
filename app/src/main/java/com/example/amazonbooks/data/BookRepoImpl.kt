@@ -1,6 +1,5 @@
 package com.example.amazonbooks.data
 
-import android.util.Log
 import com.example.amazonbooks.data.local.db.BookDatabase
 import com.example.amazonbooks.data.local.db.BookEntity
 import com.example.amazonbooks.data.remote.ApiService
@@ -22,34 +21,36 @@ class BookRepoImpl @Inject constructor(
         db.bookDao()
             .getBooksFlow()
             .distinctUntilChanged()
-            .mapLatest { entities ->
-                Log.d("BookRepo", "In mapLatest ${entities.size}")
+            .map { entities ->
                 if (entities.isEmpty() || entities.first().isGreaterThanQueryThreshold()) {
-                    Log.d("BookRepo", "In make api call size: ${entities.size}")
                     getAndStoreBooks()
+                    emptyList()
                 } else {
-                    Log.d("BookRepo", "In less than threshold")
                     entities.map {
                         Book(title = it.title, author = it.author, imageURL = it.imageURL)
                     }
                 }
             }
+            .filterNot { books -> books.isEmpty() }
             .flowOn(Dispatchers.IO)
 
-    private suspend fun getAndStoreBooks(): List<Book> {
-        val books = service.getBooks()
-        val timeStamp = TimeUnit.MILLISECONDS
-            .toMinutes(System.currentTimeMillis()).toString()
-        Log.d("BookRepo", "GetAndStoreBooks size: ${books.size}")
-        db.bookDao()
-            .insertBook(books.map {
+    private suspend fun getAndStoreBooks() =
+        service.getBooks()
+            .asFlow()
+            .map {
+                val timeStamp = TimeUnit.MILLISECONDS
+                    .toMinutes(System.currentTimeMillis())
+                    .toString()
                 BookEntity(
                     imageURL = it.imageURL,
                     timeStamp = timeStamp,
                     title = it.title,
                     author = it.author
                 )
-            })
-        return books
-    }
+            }
+            .toList()
+            .also { bookEntities ->
+                db.bookDao()
+                    .insertAllBooks(bookEntities)
+            }
 }
