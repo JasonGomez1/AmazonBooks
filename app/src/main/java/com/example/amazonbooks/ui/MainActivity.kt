@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.amazonbooks.App
 import com.example.amazonbooks.databinding.ActivityMainBinding
 import javax.inject.Inject
@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
             .create()
             .inject(this)
         binding.recyclerView.apply {
-            layoutManager = GridLayoutManager(this@MainActivity, 2)
+            layoutManager = LinearLayoutManager(this@MainActivity)
             adapter = bookAdapter
         }
 
