@@ -1,19 +1,22 @@
 package com.example.amazonbooks.ui.base
 
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.annotation.LayoutRes
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LifecycleRegistry
+import androidx.lifecycle.*
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewbinding.ViewBinding
+import com.example.amazonbooks.App
+import com.example.amazonbooks.di.components.DaggerViewHolderComponent
+import com.example.amazonbooks.di.components.ViewHolderComponent
+import com.example.amazonbooks.ui.MainActivity
 import javax.inject.Inject
 
 abstract class BaseItemViewHolder<T : Data, VM : BaseItemViewModel<T>>(
-    @LayoutRes layoutId: Int, parent: ViewGroup
-) : RecyclerView.ViewHolder(LayoutInflater.from(parent.context).inflate(layoutId, parent, false)),
+    binding: ViewBinding
+) : RecyclerView.ViewHolder(binding.root),
     LifecycleOwner {
+
+    init {
+        onCreate()
+    }
 
     @Inject
     lateinit var viewModel: VM
@@ -23,16 +26,15 @@ abstract class BaseItemViewHolder<T : Data, VM : BaseItemViewModel<T>>(
 
     override fun getLifecycle() = lifecycleRegistry
 
-    open fun bind(data: T)  {
+    open fun bind(data: T) {
         viewModel.updateData(data)
     }
 
     protected fun onCreate() {
-        injectDependencies()
+        injectDependencies(buildViewHolderComponent())
         lifecycleRegistry.currentState = Lifecycle.State.INITIALIZED
         lifecycleRegistry.currentState = Lifecycle.State.CREATED
         setupObservers()
-        setupView(itemView)
     }
 
     fun onStart() {
@@ -49,11 +51,16 @@ abstract class BaseItemViewHolder<T : Data, VM : BaseItemViewModel<T>>(
         lifecycleRegistry.currentState = Lifecycle.State.DESTROYED
     }
 
-    protected fun injectDependencies() {
+    private fun buildViewHolderComponent() =
+        DaggerViewHolderComponent
+            .factory()
+            .create(
+                this,
+                (itemView.context.applicationContext as App).appComponent,
+                (itemView.context as MainActivity).activityComponent
+            )
 
-    }
+    abstract fun injectDependencies(component: ViewHolderComponent)
 
     protected abstract fun setupObservers()
-
-    abstract fun setupView(view: View)
 }

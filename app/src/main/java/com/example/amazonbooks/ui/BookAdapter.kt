@@ -2,38 +2,21 @@ package com.example.amazonbooks.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
+import androidx.lifecycle.Lifecycle
 import com.example.amazonbooks.data.remote.Book
 import com.example.amazonbooks.databinding.BookItemBinding
+import com.example.amazonbooks.ui.base.BaseAdapter
 
-class BookAdapter : ListAdapter<Book, BookAdapter.BookViewHolder>(BookDiffUtil()) {
+class BookAdapter(
+    lifecycle: Lifecycle
+) : BaseAdapter<Book, BookViewHolder>(lifecycle, BookDiffUtil()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         BookViewHolder(
             BookItemBinding
-                .inflate(LayoutInflater
-                    .from(parent.context), parent, false)
+                .inflate(
+                    LayoutInflater
+                        .from(parent.context), parent, false
+                )
         )
-
-    override fun onBindViewHolder(holder: BookViewHolder, position: Int) {
-       holder.bind(getItem(position))
-    }
-
-    class BookViewHolder(private val binding: BookItemBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-
-        fun bind(book: Book) {
-            binding.apply {
-                tvTitle.text = book.title
-                tvAuthor.text = book.author
-                book.imageURL?.let {
-                    Glide.with(binding.root.context)
-                        .load(book.imageURL)
-                        .into(ivBook)
-                }
-            }
-        }
-    }
 }

@@ -14,7 +14,15 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var factory: ViewModelProvider.Factory
     lateinit var binding: ActivityMainBinding
-    private val bookAdapter: BookAdapter = BookAdapter()
+    val activityComponent by lazy {
+        (application as App)
+            .appComponent
+            .activityComponent
+            .create(this)
+    }
+
+    // TODO inject adapter instead
+    private val bookAdapter: BookAdapter = BookAdapter(lifecycle)
     private val viewModel by viewModels<MainViewModel> {
         factory
     }
@@ -23,11 +31,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        (application as App)
-            .appComponent
-            .activityComponent
-            .create()
-            .inject(this)
+        activityComponent.inject(this)
         binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(this@MainActivity)
             adapter = bookAdapter
