@@ -12,7 +12,7 @@ class BookViewHolder(
 ) : BaseItemViewHolder<Book, BookItemViewModel>(binding) {
     override fun setupObservers() {
         viewModel.data.observe(this) { book ->
-            Log.d("BookViewHolder", "In observe")
+            Log.d("BookViewHolder", "In observe with book: $book")
             book?.let {
                 binding.apply {
                     tvTitle.text = book.title

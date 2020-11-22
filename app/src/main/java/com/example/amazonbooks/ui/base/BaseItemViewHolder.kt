@@ -6,7 +6,6 @@ import androidx.viewbinding.ViewBinding
 import com.example.amazonbooks.App
 import com.example.amazonbooks.di.components.DaggerViewHolderComponent
 import com.example.amazonbooks.di.components.ViewHolderComponent
-import com.example.amazonbooks.ui.MainActivity
 import javax.inject.Inject
 
 abstract class BaseItemViewHolder<T : Data, VM : BaseItemViewModel<T>>(
@@ -54,11 +53,7 @@ abstract class BaseItemViewHolder<T : Data, VM : BaseItemViewModel<T>>(
     private fun buildViewHolderComponent() =
         DaggerViewHolderComponent
             .factory()
-            .create(
-                this,
-                (itemView.context.applicationContext as App).appComponent,
-                (itemView.context as MainActivity).activityComponent
-            )
+            .create(this, (itemView.context.applicationContext as App).appComponent)
 
     abstract fun injectDependencies(component: ViewHolderComponent)
 

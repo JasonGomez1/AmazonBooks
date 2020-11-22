@@ -10,7 +10,7 @@ import dagger.Component
 @ViewHolderScope
 @Component(
     modules = [ViewHolderModule::class],
-    dependencies = [AppComponent::class, ActivityComponent::class]
+    dependencies = [AppComponent::class]
 )
 interface ViewHolderComponent {
     fun inject(vh: BookViewHolder)
@@ -19,8 +19,7 @@ interface ViewHolderComponent {
     interface Factory {
         fun create(
             @BindsInstance owner: LifecycleOwner,
-            appComponent: AppComponent,
-            activityComponent: ActivityComponent
+            appComponent: AppComponent
         ): ViewHolderComponent
     }
 }

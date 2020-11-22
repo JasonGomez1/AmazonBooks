@@ -1,8 +1,6 @@
 package com.example.amazonbooks.di.modules
 
-import androidx.activity.ComponentActivity
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelStore
 import com.example.amazonbooks.data.BookRepo
 import com.example.amazonbooks.ui.MainViewModel
 import com.example.amazonbooks.utils.ViewModelProviderFactory
@@ -17,9 +15,5 @@ abstract class ActivityModule {
             ViewModelProviderFactory(MainViewModel::class) {
                 MainViewModel(bookRepo)
             }
-
-        @Provides
-        fun provideViewModelStore(componentActivity: ComponentActivity): ViewModelStore =
-            componentActivity.viewModelStore
     }
 }
