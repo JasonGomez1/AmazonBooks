@@ -20,6 +20,7 @@ class BookViewHolder(
                     book.imageURL?.let {
                         Glide.with(binding.root.context)
                             .load(book.imageURL)
+                            .fitCenter()
                             .into(ivBook)
                     }
                 }
