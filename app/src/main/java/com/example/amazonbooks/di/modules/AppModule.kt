@@ -2,8 +2,8 @@ package com.example.amazonbooks.di.modules
 
 import android.content.Context
 import androidx.room.Room
-import com.example.amazonbooks.data.BookRepo
-import com.example.amazonbooks.data.BookRepoImpl
+import com.example.amazonbooks.data.local.repo.BookRepo
+import com.example.amazonbooks.data.local.repo.BookRepoImpl
 import com.example.amazonbooks.data.local.db.BookDatabase
 import com.example.amazonbooks.data.remote.ApiService
 import com.example.amazonbooks.utils.Constants

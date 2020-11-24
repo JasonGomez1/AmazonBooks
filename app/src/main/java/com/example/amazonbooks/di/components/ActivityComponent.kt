@@ -1,10 +1,8 @@
 package com.example.amazonbooks.di.components
 
-import androidx.activity.ComponentActivity
 import com.example.amazonbooks.di.ActivityScope
 import com.example.amazonbooks.di.modules.ActivityModule
 import com.example.amazonbooks.ui.MainActivity
-import dagger.BindsInstance
 import dagger.Subcomponent
 
 @ActivityScope
@@ -14,6 +12,6 @@ interface ActivityComponent {
 
     @Subcomponent.Factory
     interface Factory {
-        fun create(@BindsInstance componentActivity: ComponentActivity): ActivityComponent
+        fun create(): ActivityComponent
     }
 }

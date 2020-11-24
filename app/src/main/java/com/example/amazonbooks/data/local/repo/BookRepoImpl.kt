@@ -1,9 +1,9 @@
-package com.example.amazonbooks.data
+package com.example.amazonbooks.data.local.repo
 
 import com.example.amazonbooks.data.local.db.BookDatabase
 import com.example.amazonbooks.data.local.db.BookEntity
 import com.example.amazonbooks.data.remote.ApiService
-import com.example.amazonbooks.data.remote.Book
+import com.example.amazonbooks.data.remote.BookDataImpl
 import com.example.amazonbooks.utils.isGreaterThanQueryThreshold
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
@@ -17,7 +17,7 @@ class BookRepoImpl @Inject constructor(
     private val db: BookDatabase
 ) : BookRepo {
 
-    override fun getBooks(): Flow<List<Book>> =
+    override fun getBooks(): Flow<List<BookDataImpl>> =
         db.bookDao()
             .getBooksFlow()
             .distinctUntilChanged()
@@ -27,7 +27,12 @@ class BookRepoImpl @Inject constructor(
                     emptyList()
                 } else {
                     entities.map {
-                        Book(title = it.title, author = it.author, imageURL = it.imageURL)
+                        BookDataImpl(
+                            title = it.title,
+                            author = it.author,
+                            imageURL = it.imageURL,
+                            id = it.id
+                        )
                     }
                 }
             }

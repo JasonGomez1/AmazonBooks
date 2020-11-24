@@ -2,7 +2,7 @@ package com.example.amazonbooks.di.components
 
 import android.content.Context
 import com.example.amazonbooks.App
-import com.example.amazonbooks.data.BookRepo
+import com.example.amazonbooks.data.local.repo.BookRepo
 import com.example.amazonbooks.di.modules.AppModule
 import dagger.BindsInstance
 import dagger.Component

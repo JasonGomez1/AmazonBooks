@@ -2,7 +2,6 @@ package com.example.amazonbooks.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,11 +14,11 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var factory: ViewModelProvider.Factory
     lateinit var binding: ActivityMainBinding
-    val activityComponent by lazy {
+    private val activityComponent by lazy {
         (application as App)
             .appComponent
             .activityComponent
-            .create(this)
+            .create()
     }
 
     // TODO inject adapter instead
@@ -42,7 +41,6 @@ class MainActivity : AppCompatActivity() {
         // the old list and the new one. It calls the appropriate methods instead of just calling
         // notifyDataSetChanged()
         viewModel.books.observe(this) {
-            Log.d("MainActivity", "In observe")
             bookAdapter.submitList(it)
         }
     }

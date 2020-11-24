@@ -1,7 +1,7 @@
 package com.example.amazonbooks.di.modules
 
 import androidx.lifecycle.*
-import com.example.amazonbooks.data.BookRepo
+import com.example.amazonbooks.data.local.repo.BookRepo
 import com.example.amazonbooks.di.ViewHolderScope
 import com.example.amazonbooks.ui.BookItemViewModel
 import com.example.amazonbooks.utils.ViewModelProviderFactory

@@ -1,7 +1,7 @@
 package com.example.amazonbooks.di.modules
 
 import androidx.lifecycle.ViewModelProvider
-import com.example.amazonbooks.data.BookRepo
+import com.example.amazonbooks.data.local.repo.BookRepo
 import com.example.amazonbooks.ui.MainViewModel
 import com.example.amazonbooks.utils.ViewModelProviderFactory
 import dagger.Module
