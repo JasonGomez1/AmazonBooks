@@ -2,7 +2,6 @@ package com.example.amazonbooks.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.amazonbooks.App
@@ -13,19 +12,19 @@ class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var factory: ViewModelProvider.Factory
+
+    @Inject
+    lateinit var viewModel: MainViewModel
     lateinit var binding: ActivityMainBinding
-    private val activityComponent by lazy {
+    val activityComponent by lazy {
         (application as App)
             .appComponent
             .activityComponent
-            .create()
+            .create(this)
     }
 
     // TODO inject adapter instead
     private val bookAdapter: BookAdapter = BookAdapter(lifecycle)
-    private val viewModel by viewModels<MainViewModel> {
-        factory
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

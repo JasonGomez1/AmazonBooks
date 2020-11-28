@@ -10,5 +10,5 @@ data class BookDataImpl(
     val title: String,
     val author: String? = null,
     val imageURL: String? = null,
-    override val id: Int?
+    override val id: Int
 ) : Data

@@ -31,7 +31,7 @@ class BookRepoImpl @Inject constructor(
                             title = it.title,
                             author = it.author,
                             imageURL = it.imageURL,
-                            id = it.id
+                            id = checkNotNull(it.id)
                         )
                     }
                 }

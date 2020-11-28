@@ -26,5 +26,6 @@ class BookViewHolder(
         }
     }
 
-    override fun injectDependencies(component: ViewHolderComponent) = component.inject(this)
+    override fun injectDependencies(component: ViewHolderComponent) =
+        component.inject(this)
 }

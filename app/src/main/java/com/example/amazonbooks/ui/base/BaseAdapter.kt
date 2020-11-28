@@ -24,7 +24,6 @@ abstract class BaseAdapter<T : Data, VH : BaseItemViewHolder<T, out BaseItemView
                             (getChildViewHolder(it) as BaseItemViewHolder<*, *>)
                                 .run {
                                     onDestroy()
-                                    viewModel.onManualCleared()
                                 }
                         }
                     }
@@ -80,7 +79,8 @@ abstract class BaseAdapter<T : Data, VH : BaseItemViewHolder<T, out BaseItemView
         this.recyclerView = null
     }
 
-    override fun onBindViewHolder(holder: VH, position: Int) {
-        holder.bind(getItem(position))
-    }
+    override fun onBindViewHolder(holder: VH, position: Int) =
+        getItem(position).let {
+            holder.bind(it, it.id)
+        }
 }

@@ -4,6 +4,7 @@ import androidx.lifecycle.*
 import com.example.amazonbooks.data.local.repo.BookRepo
 import com.example.amazonbooks.di.ViewHolderScope
 import com.example.amazonbooks.ui.BookItemViewModel
+import com.example.amazonbooks.ui.MainViewModel
 import com.example.amazonbooks.utils.ViewModelProviderFactory
 import dagger.Module
 import dagger.Provides
@@ -24,7 +25,7 @@ abstract class ViewHolderModule {
             }).get(BookItemViewModel::class.java)
 
         @Provides
-        @ViewHolderScope
-        fun provideViewModelStore() : ViewModelStore = ViewModelStore()
+        fun provideViewModelStore(mainViewModel: MainViewModel, id: Int): ViewModelStore =
+            mainViewModel.getViewHolderStore(id) ?: ViewModelStore()
     }
 }
