@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">AmazonBooks</string>
+    <string name="db_updated">Database was updated!</string>
+    <string name="notification_channel_id">Db updates</string>
+    <string name="notification_channel_name">Book Updates</string>
+    <string name="notification_channel_description">Books database updates</string>
+    <string name="notification_title">Books Update</string>
 </resources>

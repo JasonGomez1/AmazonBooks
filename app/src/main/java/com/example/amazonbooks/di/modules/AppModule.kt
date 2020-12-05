@@ -6,7 +6,7 @@ import com.example.amazonbooks.data.local.repo.BookRepo
 import com.example.amazonbooks.data.local.repo.BookRepoImpl
 import com.example.amazonbooks.data.local.db.BookDatabase
 import com.example.amazonbooks.data.remote.ApiService
-import com.example.amazonbooks.utils.Constants
+import com.example.amazonbooks.utils.BASE_URL
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -35,7 +35,7 @@ abstract class AppModule {
                 .build()
 
             return Retrofit.Builder()
-                .baseUrl(Constants.BASE_URL)
+                .baseUrl(BASE_URL)
                 .addConverterFactory(MoshiConverterFactory.create())
                 .client(client)
                 .build().create(ApiService::class.java)
