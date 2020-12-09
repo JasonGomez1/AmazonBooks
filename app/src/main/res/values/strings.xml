@@ -5,4 +5,10 @@
     <string name="notification_channel_name">Book Updates</string>
     <string name="notification_channel_description">Books database updates</string>
     <string name="notification_title">Books Update</string>
+    <string name="limit_zero">0</string>
+    <string name="limit_two">2</string>
+    <string name="limit_four">4</string>
+    <string name="limit_six">6</string>
+    <string name="limit_eight">8</string>
+    <string name="limit_ten">10</string>
 </resources>
