@@ -46,6 +46,10 @@ class LimitView @JvmOverloads constructor(
     private var limit = DatabaseLimit.ZERO
     private val pointPosition: PointF = PointF(0.0f, 0.0f)
 
+    init {
+        isClickable = true
+    }
+
     // Ensures that the radius is calculated dynamically
     override fun onSizeChanged(width: Int, height: Int, oldwidth: Int, oldheight: Int) {
         radius = (min(width, height) / 2.0 * 0.8).toFloat()
@@ -83,6 +87,15 @@ class LimitView @JvmOverloads constructor(
                     paint
                 )
             }
+    }
+
+    override fun performClick(): Boolean {
+        super.performClick()
+        // Rotate indicator to next position
+        limit = limit.next()
+        // Redraw the view
+        invalidate()
+        return true
     }
 
     /**
